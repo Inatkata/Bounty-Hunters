@@ -1,4 +1,4 @@
-namespace Bounty_Hunters.Models
+namespace Bounty_Hunters.Data.Models.Models
 {
     public class ErrorViewModel
     {
