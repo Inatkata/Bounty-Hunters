@@ -6,27 +6,23 @@ namespace Bounty_Hunters.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
-
         public IActionResult Index()
         {
+            // Return the homepage, showing top criminals and hunters
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult About()
         {
+            // Returns an "About" page describing the application
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Contact()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            // Returns a "Contact Us" page
+            return View();
         }
     }
+
 }
