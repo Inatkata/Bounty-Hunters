@@ -1,5 +1,6 @@
 ﻿using BountyHunters.Data;
 using BountyHunters.Data.Models;
+using BountyHunters.Web.ViewModels.Criminal;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,7 +31,7 @@ namespace BountyHunters.Web.Controllers
         }
         [HttpPost]
        
-        public async Task<IActionResult> Create([Bind("Name,CrimeType,Bounty,Status,CaptureDate")] Criminal criminal)
+        public async Task<IActionResult> Create( AddCriminalInputModel criminal)
         {
             if (ModelState.IsValid)
             {
@@ -52,6 +53,7 @@ namespace BountyHunters.Web.Controllers
 
             Criminal? criminal = this.dbContext
                 .Criminals
+                .Include(c => c.Captures)
                 .FirstOrDefault(c => c.Id == guidId);
             if (criminal == null)
             {

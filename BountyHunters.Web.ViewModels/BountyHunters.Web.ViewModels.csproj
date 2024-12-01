@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\BountyHunters.Common\BountyHunters.Common.csproj" />
+  </ItemGroup>
+
 </Project>
