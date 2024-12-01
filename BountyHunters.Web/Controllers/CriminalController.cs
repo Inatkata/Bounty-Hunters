@@ -40,5 +40,24 @@ namespace BountyHunters.Web.Controllers
             }
             return View(criminal);
         }
+
+        [HttpGet]
+        public IActionResult Details(string id)
+        {
+            bool isIdValid = Guid.TryParse(id, out Guid guidId);
+            if (!isIdValid)
+            {
+                return this.RedirectToAction(nameof(Index));
+            }
+
+            Criminal? criminal = this.dbContext
+                .Criminals
+                .FirstOrDefault(c => c.Id == guidId);
+            if (criminal == null)
+            {
+                return this.RedirectToAction(nameof(Index));
+            }
+            return View(criminal);
+        }
     }
 }

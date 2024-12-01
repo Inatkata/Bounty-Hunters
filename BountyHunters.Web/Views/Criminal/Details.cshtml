@@ -1,0 +1,27 @@
+﻿@model BountyHunters.Data.Models.Criminal
+
+<h1>Criminal Details</h1>
+
+<div class="card">
+    <div class="card-header">
+        <h2>@Model.Name</h2>
+    </div>
+    <div class="card-body">
+        <p><strong>Crime Type:</strong> @Model.CrimeType</p>
+        <p><strong>Bounty:</strong> $@Model.Bounty</p>
+        <p><strong>Status:</strong> @Model.Status</p>
+        @if (Model.CaptureDate.HasValue)
+        {
+            <p><strong>Capture Date:</strong> @Model.CaptureDate.Value.ToString("MMMM dd, yyyy")</p>
+        }
+        else
+        {
+            <p><strong>Capture Date:</strong> Not Captured</p>
+        }
+        <p><strong>Number of Captures:</strong> @Model.Captures?.Count ?? 0</p>
+    </div>
+</div>
+
+<a asp-action="Index" class="btn btn-secondary">Back to List</a>
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a>
+<a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>
