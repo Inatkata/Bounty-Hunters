@@ -9,7 +9,7 @@ namespace BountyHunters.Web
 
         {
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
-            string connectionString = builder.Configuration.GetConnectionString("SQLServer");
+            string connectionString = builder.Configuration.GetConnectionString("SQLServer")!;
 
             // Add services to the container.
             builder.Services.AddDbContext<BountyHuntersDbContext>(options =>
@@ -39,11 +39,6 @@ namespace BountyHunters.Web
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
-
-            using IServiceScope scope = app.Services.CreateScope();
-            BountyHuntersDbContext? db = scope.ServiceProvider
-                .GetService<BountyHuntersDbContext>();
-            await db.Database.MigrateAsync();
 
 
 

@@ -28,10 +28,7 @@ namespace BountyHunters.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("BountyHunterId")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("BountyHunterId1")
+                    b.Property<Guid>("BountyHunterId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("DateAchieved")
@@ -49,9 +46,9 @@ namespace BountyHunters.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BountyHunterId1");
+                    b.HasIndex("BountyHunterId");
 
-                    b.ToTable("Achievements", (string)null);
+                    b.ToTable("Achievements");
                 });
 
             modelBuilder.Entity("BountyHunters.Data.Models.BountyHunter", b =>
@@ -66,7 +63,9 @@ namespace BountyHunters.Data.Migrations
                         .HasColumnType("nvarchar(500)");
 
                     b.Property<int>("CaptureCount")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -80,7 +79,41 @@ namespace BountyHunters.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BountyHunters", (string)null);
+                    b.ToTable("BountyHunters");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("9b1d56b1-f46d-4225-8976-c9c70bff5801"),
+                            Bio = "A new bounty hunter ready for action.",
+                            CaptureCount = 0,
+                            Name = "John Tracker",
+                            Rank = "Novice"
+                        },
+                        new
+                        {
+                            Id = new Guid("fe4401e8-927d-4ed4-92ee-414b00904977"),
+                            Bio = "Experienced bounty hunter with countless captures.",
+                            CaptureCount = 8,
+                            Name = "Jane Swift",
+                            Rank = "Expert"
+                        },
+                        new
+                        {
+                            Id = new Guid("763bb5a4-65ca-445f-adee-846098ca0b57"),
+                            Bio = "New bounty hunter",
+                            CaptureCount = 0,
+                            Name = "Alice Tracker",
+                            Rank = "Novice"
+                        },
+                        new
+                        {
+                            Id = new Guid("8f8651c0-7c6c-4e6b-81d7-dbecd1e433bd"),
+                            Bio = "Seasoned hunter.",
+                            CaptureCount = 10,
+                            Name = "Bob Hunter",
+                            Rank = "Expert"
+                        });
                 });
 
             modelBuilder.Entity("BountyHunters.Data.Models.Capture", b =>
@@ -89,19 +122,13 @@ namespace BountyHunters.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("BountyHunterId")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("BountyHunterId1")
+                    b.Property<Guid>("BountyHunterId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CaptureDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("CriminalId")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("CriminalId1")
+                    b.Property<Guid>("CriminalId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Notes")
@@ -111,11 +138,11 @@ namespace BountyHunters.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BountyHunterId1");
+                    b.HasIndex("BountyHunterId");
 
-                    b.HasIndex("CriminalId1");
+                    b.HasIndex("CriminalId");
 
-                    b.ToTable("Captures", (string)null);
+                    b.ToTable("Captures");
                 });
 
             modelBuilder.Entity("BountyHunters.Data.Models.Criminal", b =>
@@ -147,12 +174,12 @@ namespace BountyHunters.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Criminals", (string)null);
+                    b.ToTable("Criminals");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("77341690-0fec-40dc-af8f-1347562f1c84"),
+                            Id = new Guid("e449bd86-5d5e-49b9-8c5e-5bc882b440b7"),
                             Bounty = 10000m,
                             CrimeType = "Hacking",
                             Name = "Eve Rogue",
@@ -160,7 +187,7 @@ namespace BountyHunters.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("559c6554-e160-4003-a977-f09daec53c83"),
+                            Id = new Guid("6de37a14-f172-420b-a87a-075d12d6d799"),
                             Bounty = 5000m,
                             CrimeType = "Bank Robbery",
                             Name = "John Doe",
@@ -168,7 +195,7 @@ namespace BountyHunters.Data.Migrations
                         },
                         new
                         {
-                            Id = new Guid("c699b3bd-7bb7-4d82-a2ba-7d8ff2ca65df"),
+                            Id = new Guid("dddad914-41a0-4525-a4c3-520b74310dfd"),
                             Bounty = 3000m,
                             CrimeType = "Fraud",
                             Name = "Jane Smith",
@@ -194,14 +221,14 @@ namespace BountyHunters.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("BountyHunters.Data.Models.Achievement", b =>
                 {
                     b.HasOne("BountyHunters.Data.Models.BountyHunter", "BountyHunter")
                         .WithMany("Achievements")
-                        .HasForeignKey("BountyHunterId1")
+                        .HasForeignKey("BountyHunterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -212,13 +239,13 @@ namespace BountyHunters.Data.Migrations
                 {
                     b.HasOne("BountyHunters.Data.Models.BountyHunter", "BountyHunter")
                         .WithMany("Captures")
-                        .HasForeignKey("BountyHunterId1")
+                        .HasForeignKey("BountyHunterId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("BountyHunters.Data.Models.Criminal", "Criminal")
                         .WithMany("Captures")
-                        .HasForeignKey("CriminalId1")
+                        .HasForeignKey("CriminalId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

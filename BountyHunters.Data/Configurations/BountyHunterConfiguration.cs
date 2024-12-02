@@ -34,7 +34,8 @@ namespace BountyHunters.Data.Configurations
 
             builder.HasMany(b => b.Captures)
                 .WithOne(c => c.BountyHunter)
-                .HasForeignKey(c => c.BountyHunterId);
+                .HasForeignKey(c => c.BountyHunterId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasData(this.SeedBountyHunters());
         }
