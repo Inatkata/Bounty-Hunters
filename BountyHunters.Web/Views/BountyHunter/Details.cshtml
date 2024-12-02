@@ -1,0 +1,17 @@
+﻿@model BountyHunters.Data.Models.BountyHunter
+
+<h1>@Model.Name</h1>
+
+<div class="card">
+    <div class="card-header">
+        <h2>@Model.Name</h2>
+    </div>
+    <div class="card-body">
+        <p><strong>Rank:</strong> @Model.Rank</p>
+        <p><strong>Bio:</strong> @Model.Bio</p>
+        <p><strong>Captures:</strong> @Model.CaptureCount</p>
+    </div>
+</div>
+
+<a asp-action="Index" class="btn btn-secondary">Back to List</a>
+<a asp-action="UpdateProfile" asp-route-id="@Model.Id" class="btn btn-primary">Edit Profile</a>

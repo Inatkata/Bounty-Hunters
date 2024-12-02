@@ -51,7 +51,7 @@ namespace BountyHunters.Data.Migrations
 
                     b.HasIndex("BountyHunterId1");
 
-                    b.ToTable("Achievements");
+                    b.ToTable("Achievements", (string)null);
                 });
 
             modelBuilder.Entity("BountyHunters.Data.Models.BountyHunter", b =>
@@ -80,7 +80,7 @@ namespace BountyHunters.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BountyHunters");
+                    b.ToTable("BountyHunters", (string)null);
                 });
 
             modelBuilder.Entity("BountyHunters.Data.Models.Capture", b =>
@@ -115,7 +115,7 @@ namespace BountyHunters.Data.Migrations
 
                     b.HasIndex("CriminalId1");
 
-                    b.ToTable("Captures");
+                    b.ToTable("Captures", (string)null);
                 });
 
             modelBuilder.Entity("BountyHunters.Data.Models.Criminal", b =>
@@ -147,7 +147,7 @@ namespace BountyHunters.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Criminals");
+                    b.ToTable("Criminals", (string)null);
 
                     b.HasData(
                         new
@@ -194,7 +194,7 @@ namespace BountyHunters.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("BountyHunters.Data.Models.Achievement", b =>

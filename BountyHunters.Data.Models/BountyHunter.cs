@@ -25,6 +25,6 @@ namespace BountyHunters.Data.Models
 
         public virtual ICollection<Capture> Captures { get; set; } = new HashSet<Capture>();
         public virtual ICollection<Achievement> Achievements { get; set; } = new HashSet<Achievement>();
-        public int CaptureCount { get; set; }
+        public int CaptureCount { get; set; } = 0;
     }
 }

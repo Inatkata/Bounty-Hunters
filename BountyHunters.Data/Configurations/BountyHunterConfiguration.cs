@@ -34,8 +34,7 @@ namespace BountyHunters.Data.Configurations
 
             builder.HasMany(b => b.Captures)
                 .WithOne(c => c.BountyHunter)
-                .HasForeignKey(c => c.BountyHunterId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .HasForeignKey(c => c.BountyHunterId);
 
             builder.HasData(this.SeedBountyHunters());
         }
@@ -46,13 +45,15 @@ namespace BountyHunters.Data.Configurations
             {
                 new BountyHunter
                 {
+                    Id = Guid.NewGuid(), 
                     Name = "John Tracker",
                     Rank = "Novice",
                     Bio = "A new bounty hunter ready for action.",
-                    CaptureCount = 0
+                    CaptureCount = 0 
                 },
                 new BountyHunter
                 {
+                    Id = Guid.NewGuid(),
                     Name = "Jane Swift",
                     Rank = "Expert",
                     Bio = "Experienced bounty hunter with countless captures.",
@@ -60,6 +61,7 @@ namespace BountyHunters.Data.Configurations
                 },
                 new BountyHunter
                 {
+                    Id = Guid.NewGuid(),
                     Name = "Alice Tracker",
                     Rank = "Novice",
                     Bio = "New bounty hunter",
@@ -67,6 +69,7 @@ namespace BountyHunters.Data.Configurations
                 },
                 new BountyHunter
                 {
+                    Id = Guid.NewGuid(),
                     Name = "Bob Hunter",
                     Rank = "Expert",
                     Bio = "Seasoned hunter.",
