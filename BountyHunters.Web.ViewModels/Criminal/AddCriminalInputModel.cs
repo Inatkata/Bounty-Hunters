@@ -9,6 +9,8 @@ namespace BountyHunters.Web.ViewModels.Criminal
 
     public class AddCriminalInputModel
     {
+        public string Id { get; set; } = null!;
+
         [Required(ErrorMessage = "Name input is required")]
         [MaxLength(ApplicationConstants.CriminalNameMaxLength)]
         [MinLength(ApplicationConstants.CriminalNameMinLength)]

@@ -17,11 +17,20 @@ namespace BountyHunters.Web.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            IEnumerable<Criminal> allCriminals = this.dbContext
+            IEnumerable<AddCriminalInputModel> criminals = this.dbContext
                 .Criminals
-                .ToList();
+                .Select(c => new AddCriminalInputModel()
+                {
+                    Id = c.Id.ToString(),
+                    Name = c.Name,
+                    Bounty = c.Bounty,
+                    CrimeType = c.CrimeType,
+                    Status = c.Status
 
-            return View(allCriminals);
+                })
+                .ToArray();
+
+            return View(criminals);
         }
         [HttpGet]
         public IActionResult Create()

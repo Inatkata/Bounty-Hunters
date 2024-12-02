@@ -1,5 +1,7 @@
 ﻿using BountyHunters.Data;
 using BountyHunters.Data.Models;
+using BountyHunters.Web.ViewModels.BountyHunter;
+using BountyHunters.Web.ViewModels.Criminal;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,8 +20,19 @@ namespace BountyHunters.Web.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var hunters = dbContext.BountyHunters.ToList();
-            return View(hunters);
+            IEnumerable<BountyHunterInputModel> bountyHunters = this.dbContext
+                .BountyHunters
+                .Select(c => new BountyHunterInputModel()
+                {
+                    Id = c.Id.ToString(),
+                    Name = c.Name,
+                    Rank =c.Rank,
+                    Bio = c.Bio,
+                    CaptureCount = c.CaptureCount
+                })
+                .ToArray();
+
+            return View(bountyHunters);
         }
 
         // GET: BountyHunter/Details/{id}
