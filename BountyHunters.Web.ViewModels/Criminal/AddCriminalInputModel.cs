@@ -1,18 +1,20 @@
 ﻿
-using BountyHunters.Common;
+
 using System.ComponentModel.DataAnnotations;
-using System.Text.RegularExpressions;
+using BountyHunters.Common;
+
 
 namespace BountyHunters.Web.ViewModels.Criminal
 {
+
     public class AddCriminalInputModel
     {
-        [Required]
+        [Required(ErrorMessage = "Name input is required")]
         [MaxLength(ApplicationConstants.CriminalNameMaxLength)]
         [MinLength(ApplicationConstants.CriminalNameMinLength)]
         public string Name { get; set; } = null!;
 
-        [Required]
+        [Required(ErrorMessage = "Crime type is required")]
         [MaxLength(ApplicationConstants.CriminalCrimeTypeMaxLength)]
         [MinLength(ApplicationConstants.CriminalCrimeTypeMinLength)]
         public string CrimeType { get; set; } = null!;
@@ -20,7 +22,7 @@ namespace BountyHunters.Web.ViewModels.Criminal
         [Range(0, double.MaxValue)]
         public decimal Bounty { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Status is required")]
         public string Status { get; set; } = "At Large";
 
         public DateTime? CaptureDate { get; set; }
