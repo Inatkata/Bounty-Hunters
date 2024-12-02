@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Text.RegularExpressions;
 using BountyHunters.Common;
 
 
@@ -7,11 +6,7 @@ namespace BountyHunters.Data.Models
 {
     public class Criminal
     {
-        public Criminal()
-        {
-            this.Id = Guid.NewGuid();
-        }
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
 
         [Required]
         [MaxLength(ApplicationConstants.CriminalNameMaxLength)]
@@ -27,7 +22,7 @@ namespace BountyHunters.Data.Models
         public decimal Bounty { get; set; }
 
         [Required]
-        public string Status { get; set; } = "At Large";
+        public string Status { get; set; } = null!;
 
         public DateTime? CaptureDate { get; set; }
         public virtual ICollection<Capture> Captures { get; set; } = new HashSet<Capture>();
