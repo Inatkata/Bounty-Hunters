@@ -24,18 +24,6 @@ namespace BountyHunters.Data.Configurations
 
         }
 
-        public void Configure(EntityTypeBuilder<Capture> builder)
-        {
-            builder
-                .HasOne(c => c.BountyHunter)
-                .WithMany(b => b.Captures)
-                .HasForeignKey(c => c.BountyHunterId);
-            builder
-                .HasOne(c => c.Criminal)
-                .WithMany(c => c.Captures)
-                .HasForeignKey(c => c.CriminalId);
-        }
-
         private List<Criminal> SeedCriminals()
         {
             List<Criminal> criminals = new List<Criminal>()
@@ -90,5 +78,5 @@ namespace BountyHunters.Data.Configurations
         }
     };
 
-}
+
 
