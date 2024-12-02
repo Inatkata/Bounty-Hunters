@@ -30,6 +30,6 @@ namespace BountyHunters.Data.Models
         public string Status { get; set; } = "At Large";
 
         public DateTime? CaptureDate { get; set; }
-        public ICollection<Capture> Captures { get; set; } = new List<Capture>();
+        public virtual ICollection<Capture> Captures { get; set; } = new HashSet<Capture>();
     }
 }

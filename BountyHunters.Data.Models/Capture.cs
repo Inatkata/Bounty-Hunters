@@ -11,16 +11,13 @@ namespace BountyHunters.Data.Models
     public class Capture
     {
         
-        public Capture()
-        {
-            this.Id = Guid.NewGuid();
-        }
+       
         [Key]
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
         [Required]
-        public int BountyHunterId { get; set; }
+        public Guid BountyHunterId { get; set; }
         [Required]
-        public int CriminalId { get; set; }
+        public Guid CriminalId { get; set; }
 
         public DateTime CaptureDate { get; set; }
 

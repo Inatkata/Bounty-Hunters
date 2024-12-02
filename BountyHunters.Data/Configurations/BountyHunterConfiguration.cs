@@ -74,15 +74,13 @@ namespace BountyHunters.Data.Configurations
                 {
                     Name = "First Capture",
                     Description = "Captured your first criminal!",
-                    DateAchieved = DateTime.UtcNow,
-                    BountyHunterId = 1
+                    DateAchieved = DateTime.UtcNow
                 },
                 new Achievement
                 {
                     Name = "Top Hunter",
                     Description = "Achieved the highest capture count in a month!",
-                    DateAchieved = DateTime.UtcNow.AddDays(-10),
-                    BountyHunterId = 2
+                    DateAchieved = DateTime.UtcNow.AddDays(-10)
                 }
             };
             return achievements;

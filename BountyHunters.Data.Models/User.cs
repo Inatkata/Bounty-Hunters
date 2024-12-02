@@ -10,11 +10,7 @@ namespace BountyHunters.Data.Models
 {
     public class User
     {
-        public User()
-        {
-            this.Id = Guid.NewGuid();
-        }
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
 
         [Required]
         [MaxLength(ApplicationConstants.UserNameMaxLength)]

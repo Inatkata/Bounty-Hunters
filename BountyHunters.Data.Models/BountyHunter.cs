@@ -10,12 +10,8 @@ using System.Threading.Tasks;
 namespace BountyHunters.Data.Models
 {
     public class BountyHunter
-    {
-        public BountyHunter()
-        {
-            this.Id = Guid.NewGuid();
-        }
-        public Guid Id { get; set; }
+    { 
+        public Guid Id { get; set; } = Guid.NewGuid();
 
         [Required]
         [MaxLength(ApplicationConstants.BountyHunterNameMaxLength)]
@@ -27,8 +23,8 @@ namespace BountyHunters.Data.Models
         [MaxLength(ApplicationConstants.BountyHunterBioMaxLength)]
         public string Bio { get; set; } = null!;
 
-        public ICollection<Capture> Captures { get; set; } = new List<Capture>();
-        public ICollection<Achievement> Achievements { get; set; } = new List<Achievement>();
+        public virtual ICollection<Capture> Captures { get; set; } = new HashSet<Capture>();
+        public virtual ICollection<Achievement> Achievements { get; set; } = new HashSet<Achievement>();
         public int CaptureCount { get; set; }
     }
 }

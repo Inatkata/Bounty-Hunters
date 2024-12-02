@@ -10,11 +10,8 @@ namespace BountyHunters.Data.Models
 {
     public class Achievement
     {
-        public Achievement()
-        {
-            this.Id = Guid.NewGuid();
-        }
-        public Guid Id { get; set; }
+       
+        public Guid Id { get; set; } = Guid.NewGuid();
 
         [Required]
         [MaxLength(ApplicationConstants.AchievementNameMaxLength)]
@@ -25,7 +22,7 @@ namespace BountyHunters.Data.Models
 
         public DateTime DateAchieved { get; set; }
 
-        public int BountyHunterId { get; set; }
+        public Guid BountyHunterId { get; set; }
         public BountyHunter BountyHunter { get; set; } = null!;
     }
 }
