@@ -78,7 +78,7 @@ namespace BountyHunters.Web.Controllers
             };
             await this.dbContext.BountyHunters.AddAsync(bountyHunter);
             await this.dbContext.SaveChangesAsync();
-            return this.RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index));
         }
 
 

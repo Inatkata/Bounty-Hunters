@@ -15,9 +15,9 @@ namespace BountyHunters.Web.Controllers
             this.dbContext = dbContext;
         }
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            IEnumerable<AddCriminalInputModel> criminals = this.dbContext
+            IEnumerable<AddCriminalInputModel> criminals = await this.dbContext
                 .Criminals
                 .Select(c => new AddCriminalInputModel()
                 {
@@ -28,26 +28,35 @@ namespace BountyHunters.Web.Controllers
                     Status = c.Status
 
                 })
-                .ToArray();
+                .ToArrayAsync();
 
             return View(criminals);
         }
         [HttpGet]
-        public IActionResult Create()
+        async Task<IActionResult> Create()
         {
 
             return this.View();
         }
         [HttpPost]
 
-        public async Task<IActionResult> Create(AddCriminalInputModel criminal)
+        public async Task<IActionResult> Create(AddCriminalInputModel model)
         {
             if (!ModelState.IsValid)
             {
-                return View(criminal);
+                return View(model);
             }
 
-            dbContext.Add(criminal);
+            Criminal criminal = new Criminal()
+            {
+                Name = model.Name,
+                CrimeType = model.CrimeType,
+                Bounty = model.Bounty,
+                Status = model.Status,
+                CaptureDate = model.CaptureDate
+
+            };
+            await this.dbContext.Criminals.AddAsync(criminal);
             await dbContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
 
