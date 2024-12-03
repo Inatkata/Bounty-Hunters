@@ -39,16 +39,18 @@ namespace BountyHunters.Web.Controllers
             return this.View();
         }
         [HttpPost]
-       
-        public async Task<IActionResult> Create( AddCriminalInputModel criminal)
+
+        public async Task<IActionResult> Create(AddCriminalInputModel criminal)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                dbContext.Add(criminal);
-                await dbContext.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return View(criminal);
             }
-            return View(criminal);
+
+            dbContext.Add(criminal);
+            await dbContext.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+
         }
 
         [HttpGet]

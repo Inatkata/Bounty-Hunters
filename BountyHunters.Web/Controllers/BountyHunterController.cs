@@ -16,11 +16,11 @@ namespace BountyHunters.Web.Controllers
             this.dbContext = dbContext;
         }
 
-        // GET: BountyHunter
+        
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            IEnumerable<BountyHunterInputModel> bountyHunters = this.dbContext
+            IEnumerable<BountyHunterInputModel> bountyHunters = await this.dbContext
                 .BountyHunters
                 .Select(c => new BountyHunterInputModel()
                 {
@@ -30,14 +30,15 @@ namespace BountyHunters.Web.Controllers
                     Bio = c.Bio,
                     CaptureCount = c.CaptureCount
                 })
-                .ToArray();
+                .OrderBy(c =>c.Name)
+                .ToArrayAsync();
 
             return View(bountyHunters);
         }
 
-        // GET: BountyHunter/Details/{id}
+        
         [HttpGet]
-        public IActionResult Details(string id)
+        public async Task<IActionResult> Details(string id)
         {
             if (!Guid.TryParse(id, out Guid guidId))
             {
@@ -56,7 +57,7 @@ namespace BountyHunters.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
             return this.View();
         }
@@ -75,8 +76,8 @@ namespace BountyHunters.Web.Controllers
                 Rank = model.Rank,
                 Bio = model.Bio
             };
-            this.dbContext.BountyHunters.Add(bountyHunter);
-            this.dbContext.SaveChanges();
+            await this.dbContext.BountyHunters.AddAsync(bountyHunter);
+            await this.dbContext.SaveChangesAsync();
             return this.RedirectToAction(nameof(Index));
         }
 
