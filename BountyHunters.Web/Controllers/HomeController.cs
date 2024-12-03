@@ -18,7 +18,6 @@ namespace BountyHunters.Web.Controllers
         public IActionResult Index()
         {
             ViewData["Title"] = "Home Page";
-            ViewData["Message"] = "Bounty Hunters";
             return View();
         }
 
