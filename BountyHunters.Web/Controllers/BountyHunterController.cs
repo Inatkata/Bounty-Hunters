@@ -52,28 +52,32 @@ namespace BountyHunters.Web.Controllers
                 return NotFound();
             }
 
-            return View(hunter);
+            return this.View(hunter);
         }
 
         [HttpGet]
         public IActionResult Create()
         {
-            return View();
+            return this.View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(BountyHunter hunter)
+        public async Task<IActionResult> Create(AddBountyHunterModel model)
         {
             if (!ModelState.IsValid)
             {
-               return View(hunter); 
+               return this.View(model); 
             }
-           
-            hunter.Id = Guid.NewGuid();
-            hunter.CaptureCount = 0;
-            dbContext.BountyHunters.Add(hunter);
-            await dbContext.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            BountyHunter bountyHunter = new BountyHunter()
+            {
+                Name = model.Name,
+                Rank = model.Rank,
+                Bio = model.Bio
+            };
+            this.dbContext.BountyHunters.Add(bountyHunter);
+            this.dbContext.SaveChanges();
+            return this.RedirectToAction(nameof(Index));
         }
 
 
