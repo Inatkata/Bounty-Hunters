@@ -1,7 +1,6 @@
 ﻿using BountyHunters.Data;
 using BountyHunters.Data.Models;
 using BountyHunters.Web.ViewModels.BountyHunter;
-using BountyHunters.Web.ViewModels.Criminal;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

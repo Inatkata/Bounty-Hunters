@@ -25,7 +25,7 @@ namespace BountyHunters.Web.ViewModels.Criminal
         public decimal Bounty { get; set; }
 
         [Required(ErrorMessage = "Status is required")]
-        public string Status { get; set; } = "At Large";
+        public string Status { get; set; } = null!;
 
         public DateTime? CaptureDate { get; set; }
     }

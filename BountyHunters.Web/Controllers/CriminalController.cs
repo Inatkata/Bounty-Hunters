@@ -28,12 +28,13 @@ namespace BountyHunters.Web.Controllers
                     Status = c.Status
 
                 })
+                .OrderBy(c => c.Name)
                 .ToArrayAsync();
 
             return View(criminals);
         }
         [HttpGet]
-        async Task<IActionResult> Create()
+        public async Task<IActionResult> Create()
         {
 
             return this.View();

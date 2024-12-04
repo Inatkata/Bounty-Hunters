@@ -7,7 +7,7 @@ namespace BountyHunters.Web.ViewModels.BountyHunter
 {
     public class AddBountyHunterModel
     {
-        [Required]
+        [Required(ErrorMessage = "Name input is required")]
         [MaxLength(ApplicationConstants.BountyHunterNameMaxLength)]
         public string Name { get; set; } = null!;
 
