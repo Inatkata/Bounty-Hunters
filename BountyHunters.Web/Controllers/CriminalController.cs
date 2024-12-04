@@ -55,13 +55,11 @@ namespace BountyHunters.Web.Controllers
                 Bounty = model.Bounty,
                 Status = model.Status,
                 CaptureDate = model.CaptureDate
-            };
 
+            };
             await this.dbContext.Criminals.AddAsync(criminal);
             await this.dbContext.SaveChangesAsync();
-
             return RedirectToAction(nameof(Index));
-
 
         }
 
