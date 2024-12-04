@@ -58,13 +58,13 @@ namespace BountyHunters.Web.Controllers
 
             };
             await this.dbContext.Criminals.AddAsync(criminal);
-            await dbContext.SaveChangesAsync();
+            await this.dbContext.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
 
         }
 
         [HttpGet]
-        public IActionResult Details(string id)
+        public async Task<IActionResult> Details(string id)
         {
             bool isIdValid = Guid.TryParse(id, out Guid guidId);
             if (!isIdValid)
@@ -72,13 +72,13 @@ namespace BountyHunters.Web.Controllers
                 return this.RedirectToAction(nameof(Index));
             }
 
-            Criminal? criminal = this.dbContext
+            Criminal? criminal = await this.dbContext
                 .Criminals
                 .Include(c => c.Captures)
-                .FirstOrDefault(c => c.Id == guidId);
+                .FirstOrDefaultAsync(c => c.Id == guidId);
             if (criminal == null)
             {
-                return this.RedirectToAction(nameof(Index));
+                return  this.RedirectToAction(nameof(Index));
             }
             return View(criminal);
         }
