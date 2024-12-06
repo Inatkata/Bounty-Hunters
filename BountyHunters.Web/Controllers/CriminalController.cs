@@ -41,27 +41,31 @@ namespace BountyHunters.Web.Controllers
         }
         [HttpPost]
 
-        public async Task<IActionResult> Create(AddCriminalInputModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
+public async Task<IActionResult> Create(AddCriminalInputModel model)
+{
+    // Check if the model state is valid
+    if (!ModelState.IsValid)
+    {
+        return View(model);
+    }
 
-            Criminal criminal = new Criminal()
-            {
-                Name = model.Name,
-                CrimeType = model.CrimeType,
-                Bounty = model.Bounty,
-                Status = model.Status,
-                CaptureDate = model.CaptureDate
+    // Map AddCriminalInputModel to Criminal entity
+    var criminal = new Criminal
+    {
+        Name = model.Name,
+        CrimeType = model.CrimeType,
+        Bounty = model.Bounty,
+        Status = model.Status,
+        CaptureDate = model.CaptureDate
+    };
 
-            };
-            await this.dbContext.Criminals.AddAsync(criminal);
-            await this.dbContext.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+        await dbContext.Criminals.AddAsync(criminal);
+        await dbContext.SaveChangesAsync();
+        return RedirectToAction(nameof(Index));
+    }
 
-        }
+
+
 
         [HttpGet]
         public async Task<IActionResult> Details(string id)

@@ -12,13 +12,9 @@ namespace BountyHunters.Web.ViewModels.Criminal
         public string Id { get; set; } = null!;
 
         [Required(ErrorMessage = "Name input is required")]
-        [MaxLength(ApplicationConstants.CriminalNameMaxLength)]
-        [MinLength(ApplicationConstants.CriminalNameMinLength)]
         public string Name { get; set; } = null!;
 
         [Required(ErrorMessage = "Crime type is required")]
-        [MaxLength(ApplicationConstants.CriminalCrimeTypeMaxLength)]
-        [MinLength(ApplicationConstants.CriminalCrimeTypeMinLength)]
         public string CrimeType { get; set; } = null!;
 
         [Range(0, double.MaxValue)]
@@ -29,4 +25,5 @@ namespace BountyHunters.Web.ViewModels.Criminal
 
         public DateTime? CaptureDate { get; set; }
     }
+
 }
