@@ -18,7 +18,7 @@ namespace BountyHunters.Data.Models
         public string Name { get; set; } = null!;
 
         [MaxLength(ApplicationConstants.BountyHunterRankMaxLength)]
-        public string Rank { get; set; } = "Novice";
+        public string Rank { get; set; } = null!;
 
         [MaxLength(ApplicationConstants.BountyHunterBioMaxLength)]
         public string Bio { get; set; } = null!;

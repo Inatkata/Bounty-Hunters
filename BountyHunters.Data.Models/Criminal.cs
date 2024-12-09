@@ -18,7 +18,7 @@ namespace BountyHunters.Data.Models
         [MinLength(ApplicationConstants.CriminalCrimeTypeMinLength)]
         public string CrimeType { get; set; } = null!;
 
-        [Range(0, double.MaxValue)]
+        [Range(0, 18)]
         public decimal Bounty { get; set; }
 
         [Required]

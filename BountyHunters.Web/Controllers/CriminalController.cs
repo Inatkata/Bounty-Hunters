@@ -17,9 +17,9 @@ namespace BountyHunters.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            IEnumerable<AddCriminalInputModel> criminals = await this.dbContext
+            IEnumerable<CriminalInputModel> criminals = await this.dbContext
                 .Criminals
-                .Select(c => new AddCriminalInputModel()
+                .Select(c => new CriminalInputModel()
                 {
                     Id = c.Id.ToString(),
                     Name = c.Name,
@@ -31,7 +31,7 @@ namespace BountyHunters.Web.Controllers
                 .OrderBy(c => c.Name)
                 .ToArrayAsync();
 
-            return View(criminals);
+            return View(criminals );
         }
         [HttpGet]
         public async Task<IActionResult> Create()
@@ -41,28 +41,26 @@ namespace BountyHunters.Web.Controllers
         }
         [HttpPost]
 
-public async Task<IActionResult> Create(AddCriminalInputModel model)
-{
-    // Check if the model state is valid
-    if (!ModelState.IsValid)
-    {
-        return View(model);
-    }
+        public async Task<IActionResult> Create(AddCriminalInputModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return this.View(model);
+            }
 
-    // Map AddCriminalInputModel to Criminal entity
-    var criminal = new Criminal
-    {
-        Name = model.Name,
-        CrimeType = model.CrimeType,
-        Bounty = model.Bounty,
-        Status = model.Status,
-        CaptureDate = model.CaptureDate
-    };
+            Criminal criminal = new Criminal
+            {
+                Name = model.Name,
+                CrimeType = model.CrimeType,
+                Bounty = model.Bounty,
+                Status = model.Status,
+                CaptureDate = model.CaptureDate
+            };
 
-        await dbContext.Criminals.AddAsync(criminal);
-        await dbContext.SaveChangesAsync();
-        return RedirectToAction(nameof(Index));
-    }
+            await this.dbContext.Criminals.AddAsync(criminal);
+            await this.dbContext.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
 
 
 
@@ -82,7 +80,7 @@ public async Task<IActionResult> Create(AddCriminalInputModel model)
                 .FirstOrDefaultAsync(c => c.Id == guidId);
             if (criminal == null)
             {
-                return  this.RedirectToAction(nameof(Index));
+                return this.RedirectToAction(nameof(Index));
             }
             return View(criminal);
         }

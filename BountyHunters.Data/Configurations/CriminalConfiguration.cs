@@ -9,24 +9,29 @@ namespace BountyHunters.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<Criminal> builder)
         {
-            builder.HasKey(c => c.Id);
-            builder
-                .Property(c => c.Bounty)
+            builder.Property(e => e.Name)
                 .IsRequired()
-                .HasPrecision(18, 2);
-            builder
-                .Property(c => c.CrimeType)
+                .HasMaxLength(ApplicationConstants.CriminalNameMaxLength);
+
+            builder.Property(e => e.CrimeType)
                 .IsRequired()
                 .HasMaxLength(ApplicationConstants.CriminalCrimeTypeMaxLength);
+
+            builder.Property(e => e.Bounty)
+                .IsRequired()
+                .HasPrecision(18, 2); 
+
+            builder.Property(e => e.Status)
+                .IsRequired();
 
 
             builder.HasData(this.SeedCriminals());
 
         }
 
-        private List<Criminal> SeedCriminals()
+        private IEnumerable<Criminal> SeedCriminals()
         {
-            List<Criminal> criminals = new List<Criminal>()
+            IEnumerable<Criminal> criminals = new List<Criminal>()
             {
                 new Criminal
                 {

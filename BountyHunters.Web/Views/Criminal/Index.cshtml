@@ -1,6 +1,6 @@
 ﻿@using BountyHunters.Web.ViewModels
 @using BountyHunters.Web.ViewModels.Criminal
-@model IEnumerable<BountyHunters.Web.ViewModels.Criminal.AddCriminalInputModel>
+@model IEnumerable<CriminalInputModel>
 @{
     ViewData["Title"] = "Criminals";
 }
@@ -18,7 +18,7 @@
     </tr>
     </thead>
     <tbody>
-    @foreach (AddCriminalInputModel criminal in Model)
+    @foreach (CriminalInputModel criminal in Model)
     {
         <tr>
             <td>@criminal.Name</td>

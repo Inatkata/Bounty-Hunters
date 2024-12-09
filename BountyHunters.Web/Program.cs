@@ -43,7 +43,7 @@ namespace BountyHunters.Web
             using (IServiceScope scope = app.Services.CreateScope())
             {
                 var db = scope.ServiceProvider.GetRequiredService<BountyHuntersDbContext>();
-                await db.Database.MigrateAsync(); // Ensure database is up-to-date
+                await db.Database.MigrateAsync(); 
             }
 
 
