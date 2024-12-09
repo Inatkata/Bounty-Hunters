@@ -1,22 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BountyHunters.Web.ViewModels.Achievement;
+using Microsoft.AspNetCore.Mvc;
+using global::BountyHunters.Data.Models;
+using global::BountyHunters.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace BountyHunters.Web.Controllers
 {
-    using BountyHunters.Data;
-    using BountyHunters.Data.Models;
-    using BountyHunters.Web.ViewModels.Achievement;
-    using global::BountyHunters.Data.Models;
-    using global::BountyHunters.Data;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
-
     namespace BountyHunters.Web.Controllers
     {
         public class AchievementsController : Controller
         {
             private readonly BountyHuntersDbContext dbContext;
 
-            public AchievementsController(BountyHuntersDbContext dbContext)
+            public AchievementController(BountyHuntersDbContext dbContext)
             {
                 this.dbContext = dbContext;
             }
@@ -24,8 +20,8 @@ namespace BountyHunters.Web.Controllers
             [HttpGet]
             public async Task<IActionResult> Index()
             {
-                var achievements = await this.dbContext.Achievements
-                    .Include(a => a.BountyHunter)
+                AchievementViewModel[] achievements = await this.dbContext.Achievements
+                    .Include(a => a.BountyHunterName)
                     .Select(a => new AchievementViewModel
                     {
                         Id = a.Id.ToString(),
@@ -33,13 +29,14 @@ namespace BountyHunters.Web.Controllers
                         Description = a.Description,
                         DateAchieved = a.DateAchieved,
                         BountyHunterId = a.BountyHunterId.ToString(),
-                        BountyHunterName = a.BountyHunter.Name
+                        BountyHunterName = a.BountyHunterName
                     })
                     .OrderBy(a => a.Name)
-                    .ToListAsync();
+                    .ToArrayAsync();
 
                 return View(achievements);
             }
+
 
             [HttpGet]
             public async Task<IActionResult> Create()
@@ -48,7 +45,7 @@ namespace BountyHunters.Web.Controllers
                     .Select(h => new { h.Id, h.Name })
                     .ToListAsync();
 
-                return View();
+                return this.View();
             }
 
             [HttpPost]
