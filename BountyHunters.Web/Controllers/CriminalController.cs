@@ -62,7 +62,50 @@ namespace BountyHunters.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Edit(string id)
+        {
+            bool isIdValid = Guid.TryParse(id, out Guid guidId);
+            if (!isIdValid)
+            {
+                return RedirectToAction(nameof(Index));
+            }
 
+            Criminal? criminal = await this.dbContext
+                .Criminals
+                .FirstOrDefaultAsync(c => c.Id == guidId);
+
+            if (criminal == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(criminal);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult UpdateProfile(Criminal criminal)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(criminal);
+            }
+
+            var existingCriminal = dbContext.Criminals
+                .FirstOrDefault(c => c.Id == criminal.Id);
+                
+
+            if (existingCriminal == null)
+            {
+                return NotFound();
+            }
+
+            existingCriminal.Name = criminal.Name;
+            existingCriminal.CrimeType = criminal.CrimeType;
+            dbContext.SaveChanges();
+
+            return RedirectToAction(nameof(Details), new { id = criminal.Id });
+        }
 
 
         [HttpGet]
