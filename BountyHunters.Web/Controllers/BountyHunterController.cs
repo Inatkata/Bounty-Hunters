@@ -124,6 +124,44 @@ namespace BountyHunters.Web.Controllers
 
             return RedirectToAction(nameof(Details), new { id = hunter.Id });
         }
+        [HttpGet]
+        public async Task<IActionResult> Delete(string id)
+        {
+            bool isIdValid = Guid.TryParse(id, out Guid guidId);
+            if (!isIdValid)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            BountyHunter? hunter = await this.dbContext
+                .BountyHunters
+                .FirstOrDefaultAsync(h => h.Id == guidId);
+
+            if (hunter == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(hunter);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(Guid id)
+        {
+            BountyHunter? hunter = await this.dbContext.BountyHunters.FirstOrDefaultAsync(h => h.Id == id);
+
+            if (hunter == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            this.dbContext.BountyHunters.Remove(hunter);
+            await this.dbContext.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
 
     }
 }
