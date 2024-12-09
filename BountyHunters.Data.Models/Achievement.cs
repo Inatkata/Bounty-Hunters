@@ -12,17 +12,19 @@ namespace BountyHunters.Data.Models
     {
        
         public Guid Id { get; set; } = Guid.NewGuid();
-
-        [Required]
-        [MaxLength(ApplicationConstants.AchievementNameMaxLength)]
+        [Required(ErrorMessage = "Name is required.")]
+        [MaxLength(100)]
         public string Name { get; set; } = null!;
 
-        [MaxLength(ApplicationConstants.AchievementDescriptionMaxLength)]
+        [Required(ErrorMessage = "Description is required.")]
+        [MaxLength(300)]
         public string Description { get; set; } = null!;
 
+        [Required(ErrorMessage = "Date is required.")]
         public DateTime DateAchieved { get; set; }
 
-        public Guid BountyHunterId { get; set; }
-        public BountyHunter BountyHunter { get; set; } = null!;
+        public string BountyHunterId { get; set; } = null!;
+
+        public string BountyHunterName { get; set; } = null!;
     }
 }
