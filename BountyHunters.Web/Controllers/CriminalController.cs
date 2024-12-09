@@ -84,28 +84,32 @@ namespace BountyHunters.Web.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult UpdateProfile(Criminal criminal)
+        public async Task<IActionResult> Edit(Criminal model)
         {
             if (!ModelState.IsValid)
             {
-                return View(criminal);
+                return View(model);
             }
 
-            var existingCriminal = dbContext.Criminals
-                .FirstOrDefault(c => c.Id == criminal.Id);
-                
 
-            if (existingCriminal == null)
+            Criminal? criminal = await this.dbContext.Criminals.FirstOrDefaultAsync(c => c.Id == model.Id);
+
+            if (criminal == null)
             {
-                return NotFound();
+                return RedirectToAction(nameof(Index));
             }
 
-            existingCriminal.Name = criminal.Name;
-            existingCriminal.CrimeType = criminal.CrimeType;
-            dbContext.SaveChanges();
+            criminal.Name = model.Name;
+            criminal.CrimeType = model.CrimeType;
+            criminal.Bounty = model.Bounty;
+            criminal.Status = model.Status;
+            criminal.CaptureDate = model.CaptureDate;
 
-            return RedirectToAction(nameof(Details), new { id = criminal.Id });
+            await this.dbContext.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
+
 
 
         [HttpGet]
