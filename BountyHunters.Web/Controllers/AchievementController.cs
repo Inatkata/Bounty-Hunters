@@ -8,7 +8,7 @@ namespace BountyHunters.Web.Controllers
 {
     namespace BountyHunters.Web.Controllers
     {
-        public class AchievementsController : Controller
+        public class AchievementController : Controller
         {
             private readonly BountyHuntersDbContext dbContext;
 
@@ -65,7 +65,7 @@ namespace BountyHunters.Web.Controllers
                     Name = model.Name,
                     Description = model.Description,
                     DateAchieved = model.DateAchieved,
-                    BountyHunterId = Guid.Parse(model.BountyHunterId)
+                    BountyHunterId = model.BountyHunterId
                 };
 
                 await dbContext.Achievements.AddAsync(achievement);
@@ -84,7 +84,7 @@ namespace BountyHunters.Web.Controllers
                 }
 
                 var achievement = await dbContext.Achievements
-                    .Include(a => a.BountyHunter)
+                    .Include(a => a.BountyHunterName)
                     .FirstOrDefaultAsync(a => a.Id == guidId);
 
                 if (achievement == null)
@@ -99,7 +99,7 @@ namespace BountyHunters.Web.Controllers
                     Description = achievement.Description,
                     DateAchieved = achievement.DateAchieved,
                     BountyHunterId = achievement.BountyHunterId.ToString(),
-                    BountyHunterName = achievement.BountyHunter.Name
+                    BountyHunterName = achievement.BountyHunterName
                 };
 
                 return View(viewModel);
@@ -115,7 +115,7 @@ namespace BountyHunters.Web.Controllers
                 }
 
                 var achievement = await dbContext.Achievements
-                    .Include(a => a.BountyHunter)
+                    .Include(a => a.BountyHunterName)
                     .FirstOrDefaultAsync(a => a.Id == guidId);
 
                 if (achievement == null)
