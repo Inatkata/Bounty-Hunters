@@ -1,0 +1,29 @@
+﻿@model BountyHunters.Web.ViewModels.Achievement.AchievementViewModel
+
+@{
+    ViewData["Title"] = "Delete Achievement";
+}
+
+<h1>Delete Achievement</h1>
+
+<div>
+    <h2>Are you sure you want to delete this achievement?</h2>
+    <div>
+        <strong>Name:</strong> @Model.Name
+    </div>
+    <div>
+        <strong>Description:</strong> @Model.Description
+    </div>
+    <div>
+        <strong>Date Achieved:</strong> @Model.DateAchieved.ToString("MMMM dd, yyyy")
+    </div>
+    <div>
+        <strong>Bounty Hunter:</strong> @Model.BountyHunterName
+    </div>
+</div>
+
+<form asp-action="DeleteConfirmed" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

@@ -1,5 +1,5 @@
-﻿@model BountyHunters.Web.ViewModels.Achievement.AchievementViewModel
-
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model BountyHunters.Web.ViewModels.Achievement.AchievementViewModel
 @{
     ViewData["Title"] = "Create Achievement";
 }
@@ -23,15 +23,11 @@
         <span asp-validation-for="DateAchieved" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="BountyHunterId">Bounty Hunter</label>
-        <select asp-for="BountyHunterId" class="form-control">
-            @foreach (var hunter in (IEnumerable<dynamic>)ViewBag.BountyHunters)
-            {
-                <option value="@hunter.Id">@hunter.Name</option>
-            }
-        </select>
+        <label asp-for="BountyHunterId"></label>
+        <select asp-for="BountyHunterId" asp-items="ViewBag.BountyHunters" class="form-control"></select>
         <span asp-validation-for="BountyHunterId" class="text-danger"></span>
     </div>
+
     <button type="submit" class="btn btn-success">Create</button>
     <a asp-action="Index" class="btn btn-secondary">Cancel</a>
 </form>

@@ -1,30 +1,27 @@
-﻿using BountyHunters.Common;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using BountyHunters.Common;
 
 namespace BountyHunters.Data.Models
 {
     public class Achievement
     {
-       
         public Guid Id { get; set; } = Guid.NewGuid();
+
         [Required(ErrorMessage = "Name is required.")]
-        [MaxLength(100)]
+        [MaxLength(ApplicationConstants.AchievementNameMaxLength)]
         public string Name { get; set; } = null!;
 
         [Required(ErrorMessage = "Description is required.")]
-        [MaxLength(300)]
+        [MaxLength(ApplicationConstants.AchievementDescriptionMaxLength)]
         public string Description { get; set; } = null!;
 
         [Required(ErrorMessage = "Date is required.")]
         public DateTime DateAchieved { get; set; }
 
-        public string BountyHunterId { get; set; } = null!;
+        [Required]
+        public Guid BountyHunterId { get; set; }
 
-        public string BountyHunterName { get; set; } = null!;
+        // Navigation property for the related BountyHunter
+        public BountyHunter BountyHunter { get; set; } = null!;
     }
 }

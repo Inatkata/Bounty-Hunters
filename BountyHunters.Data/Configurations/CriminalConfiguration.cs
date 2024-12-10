@@ -19,7 +19,7 @@ namespace BountyHunters.Data.Configurations
 
             builder.Property(e => e.Bounty)
                 .IsRequired()
-                .HasPrecision(18, 2); 
+                .HasPrecision(18, 2);
 
             builder.Property(e => e.Status)
                 .IsRequired();
@@ -59,29 +59,8 @@ namespace BountyHunters.Data.Configurations
             return criminals;
         }
 
-        private List<Achievement> seedAchievements()
-        {
-            List<Achievement> achievements = new List<Achievement>()
-            {
-                new Achievement
-                {
-                    Name = "First Capture",
-                    Description = "Captured your first criminal!",
-                    DateAchieved = DateTime.UtcNow
-                },
-                new Achievement
-                {
-                    Name = "Top Hunter",
-                    Description = "Achieved the highest capture count in a month!",
-                    DateAchieved = DateTime.UtcNow.AddDays(-10)
-                }
-            };
-            return achievements;
-        }
-
-       
-        }
-    };
+    }
+}
 
 
 

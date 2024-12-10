@@ -1,6 +1,6 @@
-﻿using BountyHunters.Data;
+﻿using BountyHunters.Web.ViewModels.BountyHunter;
+using BountyHunters.Data;
 using BountyHunters.Data.Models;
-using BountyHunters.Web.ViewModels.BountyHunter;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -77,6 +77,7 @@ namespace BountyHunters.Web.Controllers
             };
             await this.dbContext.BountyHunters.AddAsync(bountyHunter);
             await this.dbContext.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
 
