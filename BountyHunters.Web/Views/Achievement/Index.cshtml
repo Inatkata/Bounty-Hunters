@@ -1,6 +1,4 @@
-﻿@using BountyHunters.Web.ViewModels.Achievement
-@using Microsoft.AspNetCore.Mvc.TagHelpers
-@model IEnumerable<AchievementViewModel>
+﻿@model IEnumerable<BountyHunters.Web.ViewModels.Achievement.AchievementViewModel>
 
 @{
     ViewData["Title"] = "Achievements";
@@ -24,10 +22,11 @@
         <tr>
             <td>@achievement.Name</td>
             <td>@achievement.Description</td>
-            <td>@achievement.DateAchieved.ToShortDateString()</td>
+            <td>@achievement.DateAchieved.ToString("MMMM dd, yyyy")</td>
             <td>@achievement.BountyHunterName</td>
             <td>
                 <a asp-action="Details" asp-route-id="@achievement.Id" class="btn btn-info">Details</a>
+                <a asp-action="Edit" asp-route-id="@achievement.Id" class="btn btn-warning">Edit</a>
                 <a asp-action="Delete" asp-route-id="@achievement.Id" class="btn btn-danger">Delete</a>
             </td>
         </tr>
@@ -35,4 +34,4 @@
     </tbody>
 </table>
 
-<a asp-action="Create" class="btn btn-primary">Add New Achievement</a>
+<a asp-action="Create" class="btn btn-success">Add Achievement</a>

@@ -19,7 +19,6 @@
 
         public string BountyHunterId { get; set; } = null!;
 
-        // The name of the bounty hunter for display purposes
         public string BountyHunterName { get; set; } = null!;
     }
 }

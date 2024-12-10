@@ -52,12 +52,12 @@ namespace BountyHunters.Web.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Create(AchievementViewModel model)
+        public async Task<IActionResult> Create(AddAchievementInputModel model)
         {
             if (!ModelState.IsValid)
             {
                 ViewBag.BountyHunters = new SelectList(await dbContext.BountyHunters.ToListAsync(), "Id", "Name");
-                return View(model);
+                return View();
             }
 
             Achievement achievement = new Achievement()
@@ -65,7 +65,7 @@ namespace BountyHunters.Web.Controllers
                 Name = model.Name,
                 Description = model.Description,
                 DateAchieved = model.DateAchieved,
-                BountyHunterId = Guid.Parse(model.BountyHunterId)
+                BountyHunterId = model.BountyHunterId
             };
 
             await dbContext.Achievements.AddAsync(achievement);
@@ -103,6 +103,63 @@ namespace BountyHunters.Web.Controllers
 
             return View(viewModel);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(string id)
+        {
+            if (!Guid.TryParse(id, out Guid guidId))
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            var achievement = await dbContext.Achievements
+                .Include(a => a.BountyHunter)
+                .FirstOrDefaultAsync(a => a.Id == guidId);
+
+            if (achievement == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            var viewModel = new AddAchievementInputModel
+            {
+                Name = achievement.Name,
+                Description = achievement.Description,
+                DateAchieved = achievement.DateAchieved,
+                BountyHunterId = achievement.BountyHunterId
+            };
+
+            ViewBag.BountyHunters = new SelectList(await dbContext.BountyHunters.ToListAsync(), "Id", "Name", achievement.BountyHunterId);
+
+            return View(viewModel);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(Guid id, AddAchievementInputModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.BountyHunters = new SelectList(await dbContext.BountyHunters.ToListAsync(), "Id", "Name", model.BountyHunterId);
+                return View(model);
+            }
+
+            var achievement = await dbContext.Achievements.FirstOrDefaultAsync(a => a.Id == id);
+
+            if (achievement == null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            achievement.Name = model.Name;
+            achievement.Description = model.Description;
+            achievement.DateAchieved = model.DateAchieved;
+            achievement.BountyHunterId = model.BountyHunterId;
+
+            await dbContext.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
 
         [HttpGet]
         public async Task<IActionResult> Delete(string id)
