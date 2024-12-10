@@ -5,7 +5,7 @@ namespace BountyHunters.Web.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
     using System.Diagnostics;
-    using BountyHunters.Web.ViewModels;
+    using ViewModels;
     public class HomeController : Controller
     {
 
